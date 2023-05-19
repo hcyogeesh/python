@@ -1,0 +1,152 @@
+name = input('Enter your Name: ')
+roll = input('Enter Roll Number: ') 
+dept = input('Enter your Department: ')
+
+
+def percentage(x): 
+    if dept.lower() == 'aiml' or dept.lower() == 'ai ml': 
+        x = (grand_total / 400) * 100 
+        return x 
+    elif dept.lower() == 'cse' or dept.lower() == 'csd' or dept.lower() == 'csc': 
+        x = (grand_total / 500) * 100 
+        return x
+
+def grades(score): 
+    if 90 <= score <= 100: 
+        return 'O'     
+    elif 80 <= score < 90: 
+        return 'A' 
+    elif 70 <= score < 80: 
+        return 'B' 
+    elif 60 <= score < 70: 
+        return 'C' 
+    elif 50 <= score < 60: 
+        return 'D' 
+    elif 35 <= score < 50: 
+        return 'P' 
+    else: 
+        return 'F'
+
+
+def grand_grade(x): 
+    if (0.9 * grand_total) <= x <= grand_total: 
+        return 'O' 
+    elif (0.8 * grand_total) <= x < (0.9 * grand_total): 
+        return 'A' 
+    elif (0.7 * grand_total) <= x < (0.8 * grand_total): 
+        return 'B' 
+    elif (0.6 * grand_total) <= x < (0.7 * grand_total): 
+        return 'C' 
+    elif (0.5 * grand_total) <= x < (0.6 * grand_total): 
+        return 'D' 
+    elif (0.4 * grand_total) <= x < (0.5 * grand_total): 
+        return 'P' 
+    else: 
+        return 'F'
+
+
+def marks(department): 
+    if dept.lower() == 'aiml' or dept.lower() == 'ai ml': 
+        s1 = int(input('Enter marks scored in M&C (60): ')) 
+        s2 = int(input('Enter marks scored in Applied Physics (60): ')) 
+        s3 = int(input('Enter marks scored in PPS (60): ')) 
+        s4 = int(input('Enter marks scored in English (60): ')) 
+        tot = s1 + s2 + s3 + s4 
+        return s1, s2, s3, s4, tot
+    elif dept.lower() == 'cse' or dept.lower() == 'csd' or dept.lower() == 'csc':
+        s1 = int(input('Enter marks scored in M&C (60): '))
+        s2 = int(input('Enter marks scored in Engineering Chemistry (60): '))
+        s3 = int(input('Enter marks scored in PPS (60): '))
+        s4 = int(input('Enter marks scored in BEE (60): '))
+        s5 = int(input('Enter marks scored in CAEG (60): '))
+        tot = s1 + s2 + s3 + s4 + s5
+        return s1, s2, s3, s4, s5, tot
+
+    else:
+        print('Department not available')
+        return None
+
+
+def int_marks(department): 
+    if dept.lower() == 'aiml' or dept.lower() == 'ai ml': 
+        i1 = int(input('Enter internal marks in M&C (40): ')) 
+        i2 = int(input('Enter internal marks in Applied Physics (40): ')) 
+        i3 = int(input('Enter internal marks in PPS (40): ')) 
+        i4 = int(input('Enter internal marks in English (40): ')) 
+        i_tot = i1 + i2 + i3 + i4 
+        return i1, i2, i3, i4, i_tot
+    elif dept.lower() == 'cse' or dept.lower() == 'csd' or dept.lower() == 'csc':
+        i1 = int(input('Enter internal marks in M&C (40): '))
+        i2 = int(input('Enter internal marks in Engineering Chemistry (40): '))
+        i3 = int(input('Enter internal marks in PPS (40): '))
+        i4 = int(input('Enter internal marks in BEE (40): '))
+        i5 = int(input('Enter internal marks in CAEG (40): '))
+        i_tot = i1 + i2 + i3 + i4 + i5
+        return i1, i2, i3, i4, i5, i_tot
+
+    else:
+        print('Department not available')
+        return None
+
+
+internal_marks = int_marks(dept) 
+if internal_marks is not None: 
+    if dept.lower() == 'aiml' or dept.lower() == 'ai ml': 
+        i1, i2, i3, i4, i_tot = internal_marks
+    elif dept.lower() == 'cse' or dept.lower() == 'csd' or dept.lower() == 'csc':
+        i1, i2, i3, i4, i5, i_tot = internal_marks
+
+
+subject_marks = marks(dept) 
+if subject_marks is not None: 
+    if dept.lower() == 'aiml' or dept.lower() == 'ai ml': 
+        s1, s2, s3, s4, tot = subject_marks 
+        sub_tot1 = s1 + i1 
+        sub_tot2 = s2 + i2 
+        sub_tot3 = s3 + i3 
+        sub_tot4 = s4 + i4 
+        grade = grades(sub_tot1), grades(sub_tot2), grades(sub_tot3),             grades(sub_tot4)
+    elif dept.lower() == 'cse' or dept.lower() == 'csd' or dept.lower() == 'csc':
+        s1, s2, s3, s4, s5, tot = subject_marks
+        sub_tot1 = s1 + i1
+        sub_tot2 = s2 + i2
+        sub_tot3 = s3 + i3
+        sub_tot4 = s4 + i4
+        sub_tot5 = s5 + i5
+        grade = grades(sub_tot1), grades(sub_tot2), grades(sub_tot3), grades(sub_tot4), grades(sub_tot5)
+    
+    else:
+        print('Department not available')
+        grade = None
+
+
+grand_total = tot + i_tot 
+ov_grade = grand_grade(grand_total) 
+gp = percentage(grand_total)
+
+
+print() 
+print(f"NAME:         {name}") 
+print(f"ROLL NUMBER:  {roll}") 
+print(f"DEPARTMENT:   {dept.upper()}") 
+print() 
+if dept.lower() == 'aiml' or dept.lower() == 'ai ml': 
+    print("    SUBJECT      INTERNAL  EXTERNAL  GRADE") 
+    print(f"M&C                {i1}       {s1}        {grade[0]}")
+    print(f"Applied Physics    {i2}       {s2}        {grade[1]}") 
+    print(f"PPS                {i3}       {s3}        {grade[2]}")   
+    print(f"English            {i4}       {s4}        {grade[3]}") 
+    print() 
+    print(f"TOTAL              {tot}      {i_tot} ") 
+    print(f"GRAND TOTAL       {grand_total} / 400  {gp}    {ov_grade}")
+
+elif dept.lower() == 'cse' or dept.lower() == 'csd' or dept.lower() == 'csc':                
+    print("    SUBJECT          INTERNAL  EXTERNAL  GRADE") 
+    print(f"M&C                      {i1}       {s1}        {grade[0]}") 
+    print(f"Engineering Chemistry    {i2}       {s2}        {grade[1]}") 
+    print(f"PPS                      {i3}       {s3}        {grade[2]}") 
+    print(f"BEE                      {i4}       {s4}        {grade[3]}") 
+    print(f"CAEG                     {i5}       {s5}        {grade[4]}") 
+    print() 
+    print(f"TOTAL                    {tot}      {i_tot}") 
+    print(f"GRAND TOTAL             {grand_total} / 500  {gp}    {ov_grade}")
